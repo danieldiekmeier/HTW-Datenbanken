@@ -33,10 +33,10 @@ Zu guter Letzt sollen die Tabellen für Senf und Weißwürste mit den Geschäfte
 ## Durchführung
 
 ### Änderungen wärend der Modellierungsphase
-- Es fiel der Entschluss dass die Abstufungen bezüglich dem Schärfegrad von "Süß, Mittelscharf, Scharf und Besondere Sorte" auf eine numerische von 1-100 zu definiert wird. Somit entsteht die Möglichkeit zwei ähnlich scharfe Senfe miteinander zu vergleichen.
+- Es fiel der Entschluss dass die Abstufungen bezüglich dem Schärfegrad von Süß, Mittelscharf, Scharf und Besondere Sorte auf eine numerische von 1-100 zu definiert wird. Somit entsteht die Möglichkeit zwei ähnlich scharfe Senfe miteinander zu vergleichen.
 - Wir haben uns dazu entschlossen eine eigene Tabelle für die Weiswurst Typen zu definieren da diese immer wieder vorkommen und die Eindeutigkeit verbessert werden kann.
-- Aus Gründen der Ähnlichkeit haben wir die Fleischer und Verkäufer in die Tabelle "Unternehmen" gebündelt. Somit sind diese zentral verwaltbar. Zusätzlich definieren wir eine Tabelle Unternehmenstyp um eine Unterscheidung festzuhalten. 
+- Aus Gründen der Ähnlichkeit haben wir die Fleischer und Verkäufer in die Tabelle `Unternehmen` gebündelt. Somit sind diese zentral verwaltbar. Zusätzlich definieren wir eine Tabelle `Unternehmenstyp` um eine Unterscheidung festzuhalten. 
 
 ### Probleme
-- Wir konnten häufige Verbindungsabbrüche / Probleme mit dem Aufbau feststellen. Dies ist auf die Limitierung von einzelnen Verbindungen auf die Datenbank zu führen. (Mysql Error 1203)  
+- Wir konnten häufige Verbindungsabbrüche / Probleme mit dem Aufbau feststellen. Dies ist auf die Limitierung von einzelnen Verbindungen auf die Datenbank zu führen. (`Mysql Error 1203`)  
 
