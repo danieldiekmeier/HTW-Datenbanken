@@ -32,8 +32,18 @@ Zu guter Letzt sollen die Tabellen für Senf und Weißwürste mit den Geschäfte
 
 ## Durchführung
 
+### Konzeptuelles und physisches Schema
+
+### Prozeduren
+
+### Funktionen
+
+### Sicht
+
+### Anwender Obefläche (sollen wir das machen? Wäre eigentlich z.B. mit PHP recht leicht umsetzbar. Richtig Lust hab ich dazu aber nicht.)
+
 ### Änderungen wärend der Modellierungsphase
-- Es fiel der Entschluss dass die Abstufungen bezüglich dem Schärfegrad von Süß, Mittelscharf, Scharf und Besondere Sorte auf eine numerische von 1-100 zu definiert wird. Somit entsteht die Möglichkeit zwei ähnlich scharfe Senfe miteinander zu vergleichen.
+- Die Abstufungen bezüglich dem Schärfegrad von Süß, Mittelscharf, Scharf und Besondere Sorte soll zu einer numerischen von 1-100 geändert werden. Somit entsteht die Möglichkeit zwei ähnlich scharfe Senfe miteinander zu vergleichen.
 - Wir haben uns dazu entschlossen eine eigene Tabelle für die Weiswurst Typen zu definieren da diese immer wieder vorkommen und die Eindeutigkeit verbessert werden kann.
 - Aus Gründen der Ähnlichkeit haben wir die Fleischer und Verkäufer in die Tabelle `Unternehmen` gebündelt. Somit sind diese zentral verwaltbar. Zusätzlich definieren wir eine Tabelle `Unternehmenstyp` um eine Unterscheidung festzuhalten. 
 
