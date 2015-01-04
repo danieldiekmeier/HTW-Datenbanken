@@ -2,6 +2,15 @@
 
 Wir möchten eine Weißwurst-Datenbank anlegen.
 
+## Zugriffsdaten
+
+Host: 		db.f4.htw-berlin.de
+Username: 	s0544835
+Passwort: 	Bitte bei Daniel erfragen
+Database: 	_s0544835__weisswurst
+Port: 		3306
+
+
 ## Grundsätzlicher Aufbau
 
 - Eine Tabelle mit Weißwürsten:
