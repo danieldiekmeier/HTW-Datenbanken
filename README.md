@@ -34,7 +34,11 @@ Zu guter Letzt sollen die Tabellen für Senf und Weißwürste mit den Geschäfte
 
 ### Konzeptuelles und physisches Schema
 
+Wir haben haben aus dem bereits vorhandenen Konzept ein Entity-Relationship-Modell entwickelt welches alle Relationen darstellt. 
+
 ![alt tag](img/Weisswurstdatenbank.jpg)
+
+Aus diesem wurde ein Datenbankmodell welches zusätzlich Datentypen definiert. (Dieser Punkt stimmt glaube ich noch nicht ganz.)
 
 ### Prozeduren
 
