@@ -34,6 +34,8 @@ Zu guter Letzt sollen die Tabellen für Senf und Weißwürste mit den Geschäfte
 
 ### Konzeptuelles und physisches Schema
 
+![alt tag](img/Weisswurstdatenbank.jpg)
+
 ### Prozeduren
 
 ### Funktionen
