@@ -8,13 +8,9 @@
 # Weißwurst-Datenbank
 
 ## Zusammenfassung
-
-Da wir an einem Datenbank-Modell arbeiten wollten, dass wir wenigstens ein-, zweimal aus Spaß selbst benutzen können, haben wir uns für eine Datenbank entschieden, in der wir unseren Weißwurstkonsum unserer regelmäßig stattfindenden Weißwurstessen abbilden können.
-Dabei sollen Weißwürste, Senfsorten, Unternehmen, wie zum Beispiel Supermärkte oder Fleischer, sowie Nutzerbewertungen der Würste gespeichert werden.
-Wir hatten im Zuge der Entwicklung mit einigen Meinungsänderungen und technischen Problemen zu kämpfen, die wir aber zu unserer Zufriedenheit lösen konnten.
+Da wir an einem Datenbank-Modell arbeiten wollten, dass wir wenigstens ein-, zweimal aus Spaß selbst benutzen können, haben wir uns für eine Datenbank entschieden, in der wir unseren Weißwurstkonsum unserer regelmäßig stattfindenden Weißwurstessen abbilden können. Dabei sollen Weißwürste, Senfsorten, Unternehmen, wie zum Beispiel Supermärkte oder Fleischer, sowie Nutzerbewertungen der Würste gespeichert werden. Wir hatten im Zuge der Entwicklung mit einigen Meinungsänderungen und technischen Problemen zu kämpfen, die wir aber zu unserer Zufriedenheit lösen konnten.
 
 ## Zugriffsdaten
-
 - Host: 		db.f4.htw-berlin.de
 - Username: 	s0544835
 - Passwort: 	Bitte bei Daniel erfragen
@@ -22,12 +18,11 @@ Wir hatten im Zuge der Entwicklung mit einigen Meinungsänderungen und technisch
 - Port: 		3306
 
 ## Funktionsumfang
-
 Da wir die Datenbank am Ende selbst benutzen wollten, haben sich während der Entwicklungszeit einige Anforderungen unsererseits geändert, sodass der zunächst angedachte grundsätzliche Aufbau nicht vollständig umgesetzt wurde. Allerdings haben wir in allen Fällen, in denen eine Vorgabe von unseren Änderungen betroffen war, einen adäquaten Ersatz überlegt.
+
 Es ist nun möglich …
 
 ## Urprünglicher, grundsätzlicher Aufbau
-
 - Eine Tabelle mit Weißwürsten:
 	- Die Herkunft der Wurst, also den Schlachter, die Metzgerei, und den Markt, der diese Sorte verkauft, sollen gespeichert werden.
 	- Bestimmte Besonderheiten sollen kenntlich gemacht werden: ob die Wurst frisch vom Fleischer stammt, oder im Kühlregal fertig verpackt zu finden ist, oder ob die Wurst in Naturdarm oder in künstlichen Darm gefüllt wurde.
@@ -48,7 +43,6 @@ Die Tabellen der Senfsorten und der Weißwürste sollen derart miteinander verkn
 Zu guter Letzt sollen die Tabellen für Senf und Weißwürste mit den Geschäften verknüpft werden, in denen man sie kaufen kann.
 
 ## Beispielanwendungen
-
 - Wir möchten herausfinden, welcher Senf besonders gut zu einer bestimmten Wurstsorte passt.
 - Wir möchten uns nur Senfsorten und Würste anzeigen lassen, die beim gleichen Geschäft zu kaufen sind
 - Beim Einkauf auf den letzten Drücker wollen wir herausfinden, welche Geschäfte am Samstag nach 19:00 Uhr offen haben.
@@ -57,7 +51,6 @@ Zu guter Letzt sollen die Tabellen für Senf und Weißwürste mit den Geschäfte
 ## Durchführung
 
 ### Konzeptuelles und physisches Schema
-
 Wir haben haten aus dem bereits vorhandenen Konzept ein Entity-Relationship-Modell entwickelt welches alle Relationen darstellt. Jedoch wurde das Modell immer wieder kleineren und größeren Änderungen unterworfen (Beispiele unter *Änderungen während der Modellierungsphase*), sodass wir uns entschieden haben hier nur das finale Diagram zu zeigen.
 
 ![alt tag](img/Weisswurstdatenbank.jpg)
@@ -65,10 +58,9 @@ Wir haben haten aus dem bereits vorhandenen Konzept ein Entity-Relationship-Mode
 Aus diesem wurde ein Datenbankmodell welches zusätzlich Datentypen definiert. (Dieser Punkt stimmt glaube ich noch nicht ganz.)
 
 ### Prozeduren
-
 **Beispiel** `laden_geoeffnet`
 
-Um herauszufinden, ob ein bestimmtes Geschäft noch zur aktuellen Uhrzeit offen hat, haben wir uns eine Prozedur programmiert, die uns eine entsprechende Meldung mit der verbleibenden Öffnugszeit ausgibt. Die  greift wiedrum auf die Funktion `is_open` zurück, die im folgenden Abschnitt *Funktionen* erläutert wird
+Um herauszufinden, ob ein bestimmtes Geschäft noch zur aktuellen Uhrzeit offen hat, haben wir uns eine Prozedur programmiert, die uns eine entsprechende Meldung mit der verbleibenden Öffnugszeit ausgibt.
 
 ```sql
 CREATE PROCEDURE `laden_geoeffnet`(in unternehmen_id integer)
@@ -84,11 +76,12 @@ BEGIN
 		END IF;
     END;
 ```
-Diese Prozedur wird mit einer Unternehmens-ID aufgerufen. Zunächst wird über die Prozedur `is_open` geprüft, ob das Unternehmen offen hat. Wenn nicht, wir direkt die Meldung ausgegeben, dass es zur Zeit geschlossen hat. Hat es offen, wird der Name und die Schließzeit des Unternehmens abgefragt. In der Meldung wird die Schließzeit mit der aktuellen Uhrzeit verrechnet, um eine verbleibende Öffnungszeit anzugeben.
+Diese Prozedur wird mit einer Unternehmens-ID aufgerufen. Zunächst wird über die Prozedur `is_open` (näher Beschrieben im folgenden Abschnitt *Funktionen*) geprüft, ob das Unternehmen offen hat. Wenn nicht, wir direkt die Meldung ausgegeben, dass es zur Zeit geschlossen hat. Hat es offen, wird der Name und die Schließzeit des Unternehmens abgefragt. In der Meldung wird die Schließzeit mit der aktuellen Uhrzeit verrechnet, um eine verbleibende Öffnungszeit anzugeben.
 
 ### Funktionen
-
 **Beispiel** `is_open`
+
+Diese Funktion gibt Antwort auf die Frage, ob ein Unternehmen zurzeit offen hat.
 
 ```sql
 CREATE FUNCTION `is_open`(id_unternehmen INTEGER) RETURNS tinyint(1)
@@ -97,7 +90,7 @@ BEGIN
     DECLARE time_begin TIME;
     DECLARE time_ende TIME;
     SELECT oeffnungszeiten_beginn INTO time_begin FROM unternehmen WHERE id = id_unternehmen;
-	SELECT oeffnungszeiten_ende INTO time_ende FROM unternehmen WHERE id = id_unternehmen;
+    SELECT oeffnungszeiten_ende INTO time_ende FROM unternehmen WHERE id = id_unternehmen;
     SET output = false;
     IF time_begin < now() AND time_ende > now() THEN
 		SET output = true;
@@ -105,6 +98,8 @@ BEGIN
     RETURN output;
 END;
 ```
+
+Diese Funktion wird mit einer Unternehmens-ID aufgerufen und gibt einen boolschen Rückgabewert. Von diesem Unternehmen werden die Öffnungs- und Schließzeiten abgefragt. Schließlich wird der Rückgabewert standardmäßig auf `false` gesetzt. Liegt aber die Öffnungszeit vor und die Schließzeit nach der aktuellen Uhrzeit, was bedeutet, dass das Geschäft gerade offen ist, wird der Rückgabewert `true` gesetzt. Zu guter Letzt wird der entsprechende Wert zurückgegeben.
 
 ### Sicht
 
