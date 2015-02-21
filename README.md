@@ -51,13 +51,13 @@ Zu guter Letzt sollen die Tabellen für Senf und Weißwürste mit den Geschäfte
 - Wir möchten herausfinden, welcher Senf besonders gut zu einer bestimmten Wurstsorte passt.
 - Wir möchten uns nur Senfsorten und Würste anzeigen lassen, die beim gleichen Geschäft zu kaufen sind
 - Beim Einkauf auf den letzten Drücker wollen wir herausfinden, welche Geschäfte am Samstag nach 19:00 Uhr offen haben.
-- Für die echten Zuzler kommt natürlich nur echter Darm in Frage, also sollen alle Suchen auf Würste nur in Naturdarm beschränkt werden können.
+- Für die wahren Zuzler kommt natürlich nur echter Darm in Frage, also sollen alle Suchen auf Würste nur in Naturdarm beschränkt werden können.
 
 ## Durchführung
 
 ### Konzeptuelles und physisches Schema
 
-Wir haben haben aus dem bereits vorhandenen Konzept ein Entity-Relationship-Modell entwickelt welches alle Relationen darstellt. 
+Wir haben haten aus dem bereits vorhandenen Konzept ein Entity-Relationship-Modell entwickelt welches alle Relationen darstellt. Jedoch wurde das Modell immer wieder kleineren und größeren Änderungen unterworfen (Beispiele unter *Änderungen während der Modellierungsphase*), sodass wir uns entschieden haben hier nur das finale Diagram zu zeigen.
 
 ![alt tag](img/Weisswurstdatenbank.jpg)
 
@@ -71,7 +71,7 @@ Aus diesem wurde ein Datenbankmodell welches zusätzlich Datentypen definiert. (
 
 ### Anwender Oberfläche (sollen wir das machen? Wäre eigentlich z.B. mit PHP recht leicht umsetzbar. Richtig Lust hab ich dazu aber nicht.)
 
-### Änderungen wärend der Modellierungsphase
+### Änderungen während der Modellierungsphase
 - Die Abstufungen bezüglich dem Schärfegrad von Süß, Mittelscharf, Scharf und Besondere Sorte soll zu einer numerischen von 1-100 geändert werden. Somit entsteht die Möglichkeit zwei ähnlich scharfe Senfe miteinander zu vergleichen.
 - Wir haben uns dazu entschlossen eine eigene Tabelle für die Weiswurst Typen zu definieren da diese immer wieder vorkommen und die Eindeutigkeit verbessert werden kann.
 - Aus Gründen der Ähnlichkeit haben wir die Fleischer und Verkäufer in die Tabelle `Unternehmen` gebündelt. Somit sind diese zentral verwaltbar. Zusätzlich definieren wir eine Tabelle `Unternehmenstyp` um eine Unterscheidung festzuhalten. 
