@@ -4,8 +4,7 @@
 - Robert Piwonski (544838)
 
 # Semesterprojekt im Kurs Datenbanken
-# Wintersemester 14/15
-# Weißwurst-Datenbank
+## Wintersemester 14/15 – Weißwurst-Datenbank
 
 ## Zusammenfassung
 Da wir an einem Datenbank-Modell arbeiten wollten, dass wir wenigstens ein-, zweimal aus Spaß selbst benutzen können, haben wir uns für eine Datenbank entschieden, in der wir unseren Weißwurstkonsum unserer regelmäßig stattfindenden Weißwurstessen abbilden können. Dabei sollen Weißwürste, Senfsorten, Unternehmen, wie zum Beispiel Supermärkte oder Fleischer, sowie Nutzerbewertungen der Würste gespeichert werden. Wir hatten im Zuge der Entwicklung mit einigen Meinungsänderungen und technischen Problemen zu kämpfen, die wir aber zu unserer Zufriedenheit lösen konnten.
@@ -104,6 +103,20 @@ END;
 Diese Funktion wird mit einer Unternehmens-ID aufgerufen und gibt einen boolschen Rückgabewert. Von diesem Unternehmen werden die Öffnungs- und Schließzeiten abgefragt. Schließlich wird der Rückgabewert standardmäßig auf `false` gesetzt. Liegt aber die Öffnungszeit vor und die Schließzeit nach der aktuellen Uhrzeit, was bedeutet, dass das Geschäft gerade offen ist, wird der Rückgabewert `true` gesetzt. Zu guter Letzt wird der entsprechende Wert zurückgegeben.
 
 ### Sicht
+
+Ein Anwendungsfall, der sehr häufig auftritt, ist, alle Läden zu finden, die aktuell geöffnet sind. Dazu erstellten wir eine Sicht wie folgt:
+
+```sql
+CREATE VIEW laeden_geoeffnet AS 
+	SELECT unternehmen.name AS name
+	FROM (unternehmen 
+		LEFT JOIN unternehmen_typ ON (unternehmen.typ = unternehmen_typ.id)
+	) WHERE (
+		(unternehmen.oeffnungszeiten_beginn < now()) AND 
+		(unternehmen.oeffnungszeiten_ende > now()) AND 
+		(unternehmen_typ.beschreibung <> 'Hersteller')
+	);
+```
 
 ### Änderungen während der Modellierungsphase
 - Die Abstufungen bezüglich dem Schärfegrad von Süß, Mittelscharf, Scharf und Besondere Sorte soll zu einer numerischen von 1-100 geändert werden. Somit entsteht die Möglichkeit zwei ähnlich scharfe Senfe miteinander zu vergleichen.
