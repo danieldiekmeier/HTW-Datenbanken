@@ -117,6 +117,8 @@ CREATE VIEW laeden_geoeffnet AS
 	);
 ```
 
+In dieser View wird wiederum auf die Funktion `is_open` zurückgegriffen, wobei als zusätzliche Bedingung kein Unternehmen vom Typ "Hersteller" gefunden werden sollen, da explizit nach Verkaufs-Geschäften gefragt ist. Die Tabelle `unternehmen_typ` enthält nur fünf Einträge wobei die vier anderen Beschreibungen neben "Hersteller" die erforderten Verkaufs-Geschäfte beschreiben. 
+
 ### Änderungen während der Modellierungsphase
 - Die Abstufungen bezüglich dem Schärfegrad von Süß, Mittelscharf, Scharf und Besondere Sorte soll zu einer numerischen von 1-100 geändert werden. Somit entsteht die Möglichkeit zwei ähnlich scharfe Senfe miteinander zu vergleichen.
 - Wir haben uns dazu entschlossen eine eigene Tabelle für die Weiswurst Typen zu definieren da diese immer wieder vorkommen und die Eindeutigkeit verbessert werden kann.
