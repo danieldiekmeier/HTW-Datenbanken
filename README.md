@@ -58,7 +58,15 @@ Aus diesem wurde ein Datenbankmodell welches zusätzlich Datentypen definiert. (
 
 ## Durchführung
 
-### Technische Vorraussetzungen
+### Technische Voraussetzungen
+
+- Laufende MySQL-Installation
+- Software zur Verwaltung:
+	- MySQL-Befehlszeilenprogramm
+	- MySQL Workbench
+	- Sequel Pro
+	- PHPmyAdmin
+- Richtige Berechtigungen auf der Datenbank
 
 ### Physisches Schema
 
