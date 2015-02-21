@@ -1,9 +1,13 @@
 # Semesterprojekt im Kurs Datenbanken
-## Wintersemester 14/15
-
+# Wintersemester 14/15
 # Weißwurst-Datenbank
+- Daniel Diekmeier (544835)
+- Elias Klemm (546032)
+- Robert Koerber (545073)
+- Robert Piwonski (544838)
 
 ## Zusammenfassung
+
 Da wir an einem Datenbank-Modell arbeiten wollten, dass wir wenigstens ein-, zweimal aus Spaß selbst benutzen können, haben wir uns für eine Datenbank entschieden, in der wir unseren Weißwurstkonsum unserer regelmäßig stattfindenden Weißwurstessen abbilden können.
 Dabei sollen Weißwürste, Senfsorten, Unternehmen, wie zum Beispiel Supermärkte oder Fleischer, sowie Nutzerbewertungen der Würste gespeichert werden.
 Wir hatten im Zuge der Entwicklung mit einigen Meinungsänderungen und technischen Problemen zu kämpfen, die wir aber zu unserer Zufriedenheit lösen konnten.
@@ -16,8 +20,12 @@ Wir hatten im Zuge der Entwicklung mit einigen Meinungsänderungen und technisch
 - Database: 	_s0544835__weisswurst
 - Port: 		3306
 
+## Funktionsumfang
 
-## Grundsätzlicher Aufbau
+Da wir die Datenbank am Ende selbst benutzen wollten, haben sich während der Entwicklungszeit einige Anforderungen unsererseits geändert, sodass der zunächst angedachte grundsätzliche Aufbau nicht vollständig umgesetzt wurde. Allerdings haben wir in allen Fällen, in denen eine Vorgabe von unseren Änderungen betroffen war, einen adäquaten Ersatz überlegt.
+Es ist nun möglich …
+
+## Urprünglicher, grundsätzlicher Aufbau
 
 - Eine Tabelle mit Weißwürsten:
 	- Die Herkunft der Wurst, also den Schlachter, die Metzgerei, und den Markt, der diese Sorte verkauft, sollen gespeichert werden.
@@ -61,7 +69,7 @@ Aus diesem wurde ein Datenbankmodell welches zusätzlich Datentypen definiert. (
 
 ### Sicht
 
-### Anwender Obefläche (sollen wir das machen? Wäre eigentlich z.B. mit PHP recht leicht umsetzbar. Richtig Lust hab ich dazu aber nicht.)
+### Anwender Oberfläche (sollen wir das machen? Wäre eigentlich z.B. mit PHP recht leicht umsetzbar. Richtig Lust hab ich dazu aber nicht.)
 
 ### Änderungen wärend der Modellierungsphase
 - Die Abstufungen bezüglich dem Schärfegrad von Süß, Mittelscharf, Scharf und Besondere Sorte soll zu einer numerischen von 1-100 geändert werden. Somit entsteht die Möglichkeit zwei ähnlich scharfe Senfe miteinander zu vergleichen.
