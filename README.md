@@ -65,16 +65,18 @@ Um herauszufinden, ob ein bestimmtes Geschäft noch zur aktuellen Uhrzeit offen 
 ```sql
 CREATE PROCEDURE `laden_geoeffnet`(in unternehmen_id integer)
 BEGIN 
-		DECLARE o_ende TIME;
-        DECLARE unternehmen_name char(40);
-        IF is_open(unternehmen_id) THEN
-            SELECT oeffnungszeiten_ende INTO o_ende FROM unternehmen WHERE id = unternehmen_id;
-            SELECT `name` INTO unternehmen_name FROM unternehmen WHERE id = unternehmen_id;
-            -- SELECT CONCAT('hi');
-            SELECT CONCAT('Das Untenrehmen ', unternehmen_id, ' hat noch ', TIMEDIFF(NOW(), o_ende));
-			-- SELECT CONCAT('Das Unternehmen ', unternehmen_id, ' hat noch ', HOUR(o_ende-NOW()), ' Stunde(n) und ', MINUTE(o_ende-NOW()), 'geöffnet.');
-		END IF;
-    END;
+    DECLARE o_ende TIME;
+    DECLARE o_anfang TIME;
+    DECLARE unternehmen_name char(40);
+    SELECT name INTO unternehmen_name FROM unternehmen WHERE id = unternehmen_id;
+    IF is_open(unternehmen_id) THEN
+        SELECT oeffnungszeiten_ende INTO o_ende FROM unternehmen WHERE id = unternehmen_id;
+        SELECT CONCAT('Das Unternehmen ', unternehmen_name, ' hat noch ', TIMEDIFF(o_ende, CURTIME()), ' Stunden, Minuten und Sekunden geöffnet.');
+    ELSE
+        SELECT oeffnungszeiten_beginn INTO o_anfang FROM unternehmen WHERE id = unternehmen_id;
+        SELECT CONCAT('Das Unternehmen ', unternehmen_name, ' ist geschlossen und öffnet um ', o_anfang);
+    END IF;
+END;
 ```
 Diese Prozedur wird mit einer Unternehmens-ID aufgerufen. Zunächst wird über die Prozedur `is_open` (näher Beschrieben im folgenden Abschnitt *Funktionen*) geprüft, ob das Unternehmen offen hat. Wenn nicht, wir direkt die Meldung ausgegeben, dass es zur Zeit geschlossen hat. Hat es offen, wird der Name und die Schließzeit des Unternehmens abgefragt. In der Meldung wird die Schließzeit mit der aktuellen Uhrzeit verrechnet, um eine verbleibende Öffnungszeit anzugeben.
 
@@ -86,14 +88,14 @@ Diese Funktion gibt Antwort auf die Frage, ob ein Unternehmen zurzeit offen hat.
 ```sql
 CREATE FUNCTION `is_open`(id_unternehmen INTEGER) RETURNS tinyint(1)
 BEGIN
-	DECLARE output BOOLEAN;
+    DECLARE output BOOLEAN;
     DECLARE time_begin TIME;
     DECLARE time_ende TIME;
     SELECT oeffnungszeiten_beginn INTO time_begin FROM unternehmen WHERE id = id_unternehmen;
     SELECT oeffnungszeiten_ende INTO time_ende FROM unternehmen WHERE id = id_unternehmen;
     SET output = false;
     IF time_begin < now() AND time_ende > now() THEN
-		SET output = true;
+        SET output = true;
     END IF;
     RETURN output;
 END;
@@ -109,4 +111,4 @@ Diese Funktion wird mit einer Unternehmens-ID aufgerufen und gibt einen boolsche
 - Aus Gründen der Ähnlichkeit haben wir die Fleischer und Verkäufer in die Tabelle `Unternehmen` gebündelt. Somit sind diese zentral verwaltbar. Das führte allerdings zu dem Problem, dass eine Wurst von einem Unternehmen hergestellt und von einem weiteren verkauft wird. Daher definieren wir eine Tabelle `Unternehmenstyp` um eine Unterscheidung festzuhalten.
 
 ### Probleme
-- Ursprünglich hatten wir uns ja für eine Datenbank mit MySQL entschieden, damit wir diese zentral auf einem HTW-eigenen Server speichern und alle Gruppenteilnehmer darauf zugreifen können. Jedoch mussten wir häufige Verbindungsabbrüche / Probleme mit dem Aufbau feststellen. Dies ist auf die Limitierung von einzelnen Verbindungen auf die Datenbank zu führen (`Mysql Error 1203`). Damit war zwar der gedachte Vorteil dahin, aber wir hatten schon zu viele grundlagen erarbeitet um uns für einen Neuanfang mit Tranasct SQL zu entscheiden.
+- Ursprünglich hatten wir uns ja für eine Datenbank mit MySQL entschieden, damit wir diese zentral auf einem HTW-eigenen Server speichern und alle Gruppenteilnehmer darauf zugreifen können. Jedoch mussten wir bei einem unserer Treffen Verbindungsabbrüche / Probleme mit dem Aufbau feststellen. Dies ist auf die Limitierung von einzelnen Verbindungen auf die Datenbank zurückzuführen (`Mysql Error 1203`). Bei späteren Treffen trat dieses Problem glücklicherweise nicht mehr auf, was Vermuten lässt, dass es sich um ein temporäres Problem im HTW-Rechenzentrum handelte.
