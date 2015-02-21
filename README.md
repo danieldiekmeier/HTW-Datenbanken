@@ -1,10 +1,11 @@
-# Semesterprojekt im Kurs Datenbanken
-# Wintersemester 14/15
-# Weißwurst-Datenbank
 - Daniel Diekmeier (544835)
 - Elias Klemm (546032)
 - Robert Koerber (545073)
 - Robert Piwonski (544838)
+
+# Semesterprojekt im Kurs Datenbanken
+# Wintersemester 14/15
+# Weißwurst-Datenbank
 
 ## Zusammenfassung
 
@@ -65,17 +66,52 @@ Aus diesem wurde ein Datenbankmodell welches zusätzlich Datentypen definiert. (
 
 ### Prozeduren
 
+**Beispiel** `laden_geoeffnet`
+
+Um herauszufinden, ob ein bestimmtes Geschäft noch zur aktuellen Uhrzeit offen hat, haben wir uns eine Prozedur programmiert, die uns eine entsprechende Meldung mit der verbleibenden Öffnugszeit ausgibt. Die  greift wiedrum auf die Funktion `is_open` zurück, die im folgenden Abschnitt *Funktionen* erläutert wird
+
+```sql
+CREATE PROCEDURE `laden_geoeffnet`(in unternehmen_id integer)
+BEGIN 
+		DECLARE o_ende TIME;
+        DECLARE unternehmen_name char(40);
+        IF is_open(unternehmen_id) THEN
+            SELECT oeffnungszeiten_ende INTO o_ende FROM unternehmen WHERE id = unternehmen_id;
+            SELECT `name` INTO unternehmen_name FROM unternehmen WHERE id = unternehmen_id;
+            -- SELECT CONCAT('hi');
+            SELECT CONCAT('Das Untenrehmen ', unternehmen_id, ' hat noch ', TIMEDIFF(NOW(), o_ende));
+			-- SELECT CONCAT('Das Unternehmen ', unternehmen_id, ' hat noch ', HOUR(o_ende-NOW()), ' Stunde(n) und ', MINUTE(o_ende-NOW()), 'geöffnet.');
+		END IF;
+    END;
+```
+Diese Prozedur wird mit einer Unternehmens-ID aufgerufen. Zunächst wird über die Prozedur `is_open` geprüft, ob das Unternehmen offen hat. Wenn nicht, wir direkt die Meldung ausgegeben, dass es zur Zeit geschlossen hat. Hat es offen, wird der Name und die Schließzeit des Unternehmens abgefragt. In der Meldung wird die Schließzeit mit der aktuellen Uhrzeit verrechnet, um eine verbleibende Öffnungszeit anzugeben.
+
 ### Funktionen
 
-### Sicht
+**Beispiel** `is_open`
 
-### Anwender Oberfläche (sollen wir das machen? Wäre eigentlich z.B. mit PHP recht leicht umsetzbar. Richtig Lust hab ich dazu aber nicht.)
+```sql
+CREATE FUNCTION `is_open`(id_unternehmen INTEGER) RETURNS tinyint(1)
+BEGIN
+	DECLARE output BOOLEAN;
+    DECLARE time_begin TIME;
+    DECLARE time_ende TIME;
+    SELECT oeffnungszeiten_beginn INTO time_begin FROM unternehmen WHERE id = id_unternehmen;
+	SELECT oeffnungszeiten_ende INTO time_ende FROM unternehmen WHERE id = id_unternehmen;
+    SET output = false;
+    IF time_begin < now() AND time_ende > now() THEN
+		SET output = true;
+    END IF;
+    RETURN output;
+END;
+```
+
+### Sicht
 
 ### Änderungen während der Modellierungsphase
 - Die Abstufungen bezüglich dem Schärfegrad von Süß, Mittelscharf, Scharf und Besondere Sorte soll zu einer numerischen von 1-100 geändert werden. Somit entsteht die Möglichkeit zwei ähnlich scharfe Senfe miteinander zu vergleichen.
 - Wir haben uns dazu entschlossen eine eigene Tabelle für die Weiswurst Typen zu definieren da diese immer wieder vorkommen und die Eindeutigkeit verbessert werden kann.
-- Aus Gründen der Ähnlichkeit haben wir die Fleischer und Verkäufer in die Tabelle `Unternehmen` gebündelt. Somit sind diese zentral verwaltbar. Zusätzlich definieren wir eine Tabelle `Unternehmenstyp` um eine Unterscheidung festzuhalten. 
+- Aus Gründen der Ähnlichkeit haben wir die Fleischer und Verkäufer in die Tabelle `Unternehmen` gebündelt. Somit sind diese zentral verwaltbar. Das führte allerdings zu dem Problem, dass eine Wurst von einem Unternehmen hergestellt und von einem weiteren verkauft wird. Daher definieren wir eine Tabelle `Unternehmenstyp` um eine Unterscheidung festzuhalten.
 
 ### Probleme
-- Wir konnten häufige Verbindungsabbrüche / Probleme mit dem Aufbau feststellen. Dies ist auf die Limitierung von einzelnen Verbindungen auf die Datenbank zu führen. (`Mysql Error 1203`)  
-
+- Ursprünglich hatten wir uns ja für eine Datenbank mit MySQL entschieden, damit wir diese zentral auf einem HTW-eigenen Server speichern und alle Gruppenteilnehmer darauf zugreifen können. Jedoch mussten wir häufige Verbindungsabbrüche / Probleme mit dem Aufbau feststellen. Dies ist auf die Limitierung von einzelnen Verbindungen auf die Datenbank zu führen (`Mysql Error 1203`). Damit war zwar der gedachte Vorteil dahin, aber wir hatten schon zu viele grundlagen erarbeitet um uns für einen Neuanfang mit Tranasct SQL zu entscheiden.
