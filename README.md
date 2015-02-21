@@ -112,8 +112,7 @@ CREATE VIEW laeden_geoeffnet AS
 	FROM (unternehmen 
 		LEFT JOIN unternehmen_typ ON (unternehmen.typ = unternehmen_typ.id)
 	) WHERE (
-		(unternehmen.oeffnungszeiten_beginn < now()) AND 
-		(unternehmen.oeffnungszeiten_ende > now()) AND 
+		(is_open(unternehmen.id) AND 
 		(unternehmen_typ.beschreibung <> 'Hersteller')
 	);
 ```
