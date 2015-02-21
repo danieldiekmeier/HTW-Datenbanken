@@ -47,14 +47,20 @@ Zu guter Letzt sollen die Tabellen für Senf und Weißwürste mit den Geschäfte
 - Beim Einkauf auf den letzten Drücker wollen wir herausfinden, welche Geschäfte am Samstag nach 19:00 Uhr offen haben.
 - Für die wahren Zuzler kommt natürlich nur echter Darm in Frage, also sollen alle Suchen auf Würste nur in Naturdarm beschränkt werden können.
 
-## Durchführung
+## Konzeption
 
-### Konzeptuelles und physisches Schema
+### Konzeptuelles  Schema
 Wir haben haten aus dem bereits vorhandenen Konzept ein Entity-Relationship-Modell entwickelt welches alle Relationen darstellt. Jedoch wurde das Modell immer wieder kleineren und größeren Änderungen unterworfen (Beispiele unter *Änderungen während der Modellierungsphase*), sodass wir uns entschieden haben hier nur das finale Diagram zu zeigen.
 
 ![alt tag](img/Weisswurstdatenbank.jpg)
 
 Aus diesem wurde ein Datenbankmodell welches zusätzlich Datentypen definiert. (Dieser Punkt stimmt glaube ich noch nicht ganz.)
+
+## Durchführung
+
+### Technische Vorraussetzungen
+
+### Physisches Schema
 
 ### Prozeduren
 **Beispiel** `laden_geoeffnet`
@@ -127,3 +133,6 @@ In dieser View wird wiederum auf die Funktion `is_open` zurückgegriffen, wobei 
 ### Probleme
 - Ursprünglich hatten wir uns für eine Datenbank mit MySQL entschieden, damit wir diese zentral auf einem HTW-eigenen Server speichern und alle Gruppenteilnehmer darauf zugreifen können. Jedoch mussten wir bei einem unserer Treffen Verbindungsabbrüche / Probleme mit dem Aufbau feststellen. Dies ist auf die Limitierung von einzelnen Verbindungen auf die Datenbank zurückzuführen (`Mysql Error 1203`). Bei späteren Treffen trat dieses Problem glücklicherweise nicht mehr auf, was Vermuten lässt, dass es sich um ein temporäres Problem im HTW-Rechenzentrum handelte.
 - In der Funktion `is_open` werden von dem selben Unternehmen sowohl `oeffnungszeiten_beginn` als auch `oeffnungszeiten_ende`, was nahe legt, diese Abfragen in einer Select-Anweisung abzuhandeln und in den jeweiligen Funktionsvariablen zwidschenzuspeichern. Es hat uns einige Zeit und Nerven gekostet, herauszufinden, dass das nicht möglich ist. Die Lösung war es, die Daten einzeln abzufragen und zu speichern.
+- 
+
+## Erweiterungsmöglichkeiten
