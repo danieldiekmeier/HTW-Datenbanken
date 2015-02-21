@@ -17,13 +17,13 @@ Da wir an einem Datenbank-Modell arbeiten wollten, dass wir wenigstens ein-, zwe
 - Port: 		3306
 
 ## Funktionsumfang
-Da wir die Datenbank am Ende selbst benutzen wollten, haben sich während der Entwicklungszeit einige Anforderungen unsererseits geändert, sodass der zunächst angedachte grundsätzliche Aufbau nicht vollständig umgesetzt wurde. Allerdings haben wir in allen Fällen, in denen eine Vorgabe von unseren Änderungen betroffen war, einen adäquaten Ersatz überlegt.
+Da wir die Datenbank am Ende selbst benutzen wollten, haben sich während der Entwicklungszeit einige Anforderungen unsererseits geändert, sodass der zunächst angedachte grundsätzliche Aufbau nicht vollständig umgesetzt wurde. Allerdings haben wir uns in allen Fällen, in denen eine Vorgabe von unseren Änderungen betroffen war, einen adäquaten Ersatz überlegt.
 
 Es ist nun möglich …
 
 ## Konzeption
 
-## Urprüngliche angedachter Aufbau
+### Angedachter Aufbau
 - Eine Tabelle mit Weißwürsten:
 	- Die Herkunft der Wurst, also den Schlachter, die Metzgerei, und den Markt, der diese Sorte verkauft, sollen gespeichert werden.
 	- Bestimmte Besonderheiten sollen kenntlich gemacht werden: ob die Wurst frisch vom Fleischer stammt, oder im Kühlregal fertig verpackt zu finden ist, oder ob die Wurst in Naturdarm oder in künstlichen Darm gefüllt wurde.
@@ -43,16 +43,16 @@ Die Tabellen der Senfsorten und der Weißwürste sollen derart miteinander verkn
 
 Zu guter Letzt sollen die Tabellen für Senf und Weißwürste mit den Geschäften verknüpft werden, in denen man sie kaufen kann.
 
-## Beispielanwendungen
+### Beispielanwendungen
 - Wir möchten herausfinden, welcher Senf besonders gut zu einer bestimmten Wurstsorte passt.
 - Wir möchten uns nur Senfsorten und Würste anzeigen lassen, die beim gleichen Geschäft zu kaufen sind
 - Beim Einkauf auf den letzten Drücker wollen wir herausfinden, welche Geschäfte am Samstag nach 19:00 Uhr offen haben.
 - Für die wahren Zuzler kommt natürlich nur echter Darm in Frage, also sollen alle Suchen auf Würste nur in Naturdarm beschränkt werden können.
 
-### Konzeptuelles  Schema
-Wir hatten aus dem bereits vorhandenen Konzept ein Entity-Relationship-Modell entwickelt welches alle Relationen darstellt. Jedoch wurde das Modell immer wieder kleineren und größeren Änderungen unterworfen (Beispiele unter *Änderungen während der Modellierungsphase*), sodass wir uns entschieden haben hier nur das finale Diagram zu zeigen.
+### Konzeptuelles Schema
+Als grobe Richtlinie haben wir uns aus dem angedachten Aufbau ein Entity-Relationship-Modell gezeichnet. Jedoch wurde das Modell immer wieder kleineren und größeren Änderungen unterworfen (Beispiele unter *Änderungen während der Modellierungsphase*), sodass das ERM deutlich vom …-Schema abweicht.
 
-![alt tag](img/Weisswurstdatenbank.jpg)
+…
 
 Aus diesem wurde ein Datenbankmodell welches zusätzlich Datentypen definiert. (Dieser Punkt stimmt glaube ich noch nicht ganz.)
 
@@ -69,6 +69,9 @@ Aus diesem wurde ein Datenbankmodell welches zusätzlich Datentypen definiert. (
 - Richtige Berechtigungen auf der Datenbank
 
 ### Physisches Schema
+Das abschließende …-Schema haben wir mit Hilfe … erzeugt. Es zeigt alle angelegten Tabellen und deren Verbindungen. Es zeigt einige einige Veränderungen und Erweiterungen zum zuvor entworfenen Entity-Relationship-Model. So haben wir zum Beispiel …
+
+![alt tag](img/Weisswurstdatenbank.jpg)
 
 ### Prozeduren
 **Beispiel** `laden_geoeffnet`
@@ -122,16 +125,16 @@ Ein Anwendungsfall, der sehr häufig auftritt, ist, alle Läden zu finden, die a
 
 ```sql
 CREATE VIEW laeden_geoeffnet AS 
-	SELECT unternehmen.name AS name
-	FROM (unternehmen 
-		LEFT JOIN unternehmen_typ ON (unternehmen.typ = unternehmen_typ.id)
-	) WHERE (
-		(is_open(unternehmen.id) AND 
-		(unternehmen_typ.beschreibung <> 'Hersteller')
-	);
+    SELECT unternehmen.name AS name
+    FROM (unternehmen 
+        LEFT JOIN unternehmen_typ ON (unternehmen.typ = unternehmen_typ.id)
+    ) WHERE (
+        (is_open(unternehmen.id) AND 
+        (unternehmen_typ.beschreibung <> 'Hersteller')
+    );
 ```
 
-In dieser View wird wiederum auf die Funktion `is_open` zurückgegriffen, wobei als zusätzliche Bedingung kein Unternehmen vom Typ "Hersteller" gefunden werden sollen, da explizit nach Verkaufs-Geschäften gefragt ist. Die Tabelle `unternehmen_typ` enthält nur fünf Einträge wobei die vier anderen Beschreibungen neben "Hersteller" die erforderten Verkaufs-Geschäfte beschreiben. 
+In dieser View wird wiederum auf die Funktion `is_open` zurückgegriffen, wobei als zusätzliche Bedingung kein Unternehmen vom Typ "Hersteller" gefunden werden sollen, da explizit nach Verkaufs-Geschäften gefragt ist. Die Tabelle `unternehmen_typ` enthält nur fünf Einträge wobei die vier anderen Beschreibungen neben "Hersteller" die erforderten Verkaufs-Geschäfte bezeichnen. 
 
 ### Änderungen während der Modellierungsphase
 - Die Abstufungen bezüglich dem Schärfegrad von Süß, Mittelscharf, Scharf und Besondere Sorte soll zu einer numerischen von 1-100 geändert werden. Somit entsteht die Möglichkeit zwei ähnlich scharfe Senfe miteinander zu vergleichen.
@@ -146,3 +149,7 @@ In dieser View wird wiederum auf die Funktion `is_open` zurückgegriffen, wobei 
 ## Erweiterungsmöglichkeiten
 - Wochentage der Öffnungszeiten
 - Prozedur für Weißwurstessen: Anzahl erhöhen, Datum setzen
+- …
+
+## Quellen
+- …
