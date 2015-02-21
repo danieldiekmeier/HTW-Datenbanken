@@ -21,7 +21,9 @@ Da wir die Datenbank am Ende selbst benutzen wollten, haben sich während der En
 
 Es ist nun möglich …
 
-## Urprünglicher, grundsätzlicher Aufbau
+## Konzeption
+
+## Urprüngliche angedachter Aufbau
 - Eine Tabelle mit Weißwürsten:
 	- Die Herkunft der Wurst, also den Schlachter, die Metzgerei, und den Markt, der diese Sorte verkauft, sollen gespeichert werden.
 	- Bestimmte Besonderheiten sollen kenntlich gemacht werden: ob die Wurst frisch vom Fleischer stammt, oder im Kühlregal fertig verpackt zu finden ist, oder ob die Wurst in Naturdarm oder in künstlichen Darm gefüllt wurde.
@@ -47,10 +49,8 @@ Zu guter Letzt sollen die Tabellen für Senf und Weißwürste mit den Geschäfte
 - Beim Einkauf auf den letzten Drücker wollen wir herausfinden, welche Geschäfte am Samstag nach 19:00 Uhr offen haben.
 - Für die wahren Zuzler kommt natürlich nur echter Darm in Frage, also sollen alle Suchen auf Würste nur in Naturdarm beschränkt werden können.
 
-## Konzeption
-
 ### Konzeptuelles  Schema
-Wir haben haten aus dem bereits vorhandenen Konzept ein Entity-Relationship-Modell entwickelt welches alle Relationen darstellt. Jedoch wurde das Modell immer wieder kleineren und größeren Änderungen unterworfen (Beispiele unter *Änderungen während der Modellierungsphase*), sodass wir uns entschieden haben hier nur das finale Diagram zu zeigen.
+Wir hatten aus dem bereits vorhandenen Konzept ein Entity-Relationship-Modell entwickelt welches alle Relationen darstellt. Jedoch wurde das Modell immer wieder kleineren und größeren Änderungen unterworfen (Beispiele unter *Änderungen während der Modellierungsphase*), sodass wir uns entschieden haben hier nur das finale Diagram zu zeigen.
 
 ![alt tag](img/Weisswurstdatenbank.jpg)
 
@@ -136,3 +136,5 @@ In dieser View wird wiederum auf die Funktion `is_open` zurückgegriffen, wobei 
 - …
 
 ## Erweiterungsmöglichkeiten
+- Wochentage der Öffnungszeiten
+- Prozedur für Weißwurstessen: Anzahl erhöhen, Datum setzen
