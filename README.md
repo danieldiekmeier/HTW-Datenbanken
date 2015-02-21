@@ -1,6 +1,12 @@
+# Semesterprojekt im Kurs Datenbanken
+## Wintersemester 14/15
+
 # Weißwurst-Datenbank
 
-Wir möchten eine Weißwurst-Datenbank anlegen.
+## Zusammenfassung
+Da wir an einem Datenbank-Modell arbeiten wollten, dass wir wenigstens ein-, zweimal aus Spaß selbst benutzen können, haben wir uns für eine Datenbank entschieden, in der wir unseren Weißwurstkonsum unserer regelmäßig stattfindenden Weißwurstessen abbilden können.
+Dabei sollen Weißwürste, Senfsorten, Unternehmen, wie zum Beispiel Supermärkte oder Fleischer, sowie Nutzerbewertungen der Würste gespeichert werden.
+Wir hatten im Zuge der Entwicklung mit einigen Meinungsänderungen und technischen Problemen zu kämpfen, die wir aber zu unserer Zufriedenheit lösen konnten.
 
 ## Zugriffsdaten
 
