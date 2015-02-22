@@ -7,7 +7,7 @@
 ## Wintersemester 14/15 – Weißwurst-Datenbank
 
 ## Zusammenfassung
-Da wir an einem Datenbank-Modell arbeiten wollten, dass wir wenigstens ein-, zweimal aus Spaß selbst benutzen können, haben wir uns für eine Datenbank entschieden, in der wir unseren Weißwurstkonsum unserer regelmäßig stattfindenden Weißwurstessen abbilden können. Dabei sollen Weißwürste, Senfsorten, Unternehmen, wie zum Beispiel Supermärkte oder Fleischer, sowie Nutzerbewertungen der Würste gespeichert werden. Wir hatten im Zuge der Entwicklung mit einigen Meinungsänderungen und technischen Problemen zu kämpfen, die wir aber zu unserer Zufriedenheit lösen konnten.
+Da wir an einem Datenbank-Modell arbeiten wollten, dass wir wenigstens ein-, zweimal aus Spaß selbst benutzen können, haben wir uns für eine Datenbank entschieden, in der wir unseren Weißwurstkonsum unserer regelmäßig stattfindenden Weißwurstessen abbilden können. Dabei sollen Weißwürste, Senfsorten, Unternehmen wie zum Beispiel Supermärkte oder Fleischer, sowie Nutzerbewertungen der Würste gespeichert werden. Wir hatten im Zuge der Entwicklung mit einigen Meinungsänderungen und technischen Problemen zu kämpfen, die wir aber zu unserer Zufriedenheit lösen konnten.
 
 ## Zugriffsdaten
 - Host: 		db.f4.htw-berlin.de
@@ -21,9 +21,11 @@ Da wir die Datenbank am Ende selbst benutzen wollten, haben sich während der En
 
 Es ist nun möglich Weißwürste, Senfsorten und Unternehmen in der Datenbank zu speichern. Außerdem kann die Kombination von Weißwurst und Senf bewertet werden.
 
-Würste und Senf können mit typischen Angaben, wie z. B. Name, Preis und Gewicht gespeichert werden. Würste erhalten noch extra Felder zum Merken, wie oft sie bereits gegessen wurden und wann zum letzten Mal. Würste können außerdem einem bestimmten Typ zugeordnet werden, der wiederum mit einer genaueren Beschreibung versehen werden kann. Dem Senf kann ein Schärfegrad in Zahlen zugeordnet werden.
+Würste und Senfe können mit typischen Angaben (z. B. Name, Preis und Gewicht) gespeichert werden. Würste erhalten noch extra Felder zum Merken wie oft sie bereits gegessen wurden und wann zum letzten Mal. Außerdem können sie einem bestimmten Typ zugeordnet werden, der wiederum mit einer genaueren Beschreibung versehen werden kann. Dem Senf kann ein Schärfegrad in Zahlen zugeordnet werden.
 
-Unternehmen haben ebenfalls die erwartbaren Angaben, wie z. B. Ort, Straße oder Telefonnummer. Ein Unternehmen kann sowohl ein Hersteller sein, als auch ein Geschäft, in dem Produkte gekauft werden. Zu jedem Geschäft kann eine Öffnungszeit gespeichert werden, und somit können aktuell geöffnete Geschäfte in einer Sicht angezeigt werden.
+Unternehmen haben ebenfalls die erwartbaren Angaben, (z. B. Ort, Straße oder Telefonnummer). Ein Unternehmen kann sowohl ein Hersteller sein, als auch ein Geschäft, in dem Produkte gekauft werden. Zu jedem Geschäft kann eine Öffnungszeit gespeichert werden, und somit können aktuell geöffnete Geschäfte in einer Sicht angezeigt werden.
+
+Würste und Senfe können schlussendlich einem Unternehmen zugeordnet werden, dass sie entweder verkauft oder diese herstellt. Hersteller werden direkt bei der Weißwurst gespeichert, während Geschäft-Produkt-Beziehungen über Zwischentabellen verwaltet werden.
 
 ## Konzeption
 
@@ -54,7 +56,7 @@ Zu guter Letzt sollen die Tabellen für Senf und Weißwürste mit den Geschäfte
 - Für die wahren Zuzler kommt natürlich nur echter Darm in Frage, also sollen alle Suchen auf Würste nur in Naturdarm beschränkt werden können.
 
 ### Konzeptuelles Schema
-Als grobe Richtlinie haben wir uns aus dem angedachten Aufbau ein Entity-Relationship-Modell gezeichnet. Jedoch wurde das Modell immer wieder kleineren und größeren Änderungen unterworfen (Beispiele unter *Änderungen während der Modellierungsphase*), sodass das ERM deutlich vom physikalischen Modell abweicht.
+Als grobe Richtlinie haben wir uns aus dem angedachten Aufbau ein Entity-Relationship-Modell (ERM) gezeichnet. Jedoch wurde das Modell immer wieder kleineren und größeren Änderungen unterworfen (Beispiele unter *Änderungen während der Modellierungsphase*), sodass das ERM vom physikalischen Modell abweicht.
 
 ![Konzeptuelles Schema](img/Weisswurstdatenbank_ERM_02-21_14-49.png)
 
@@ -71,7 +73,7 @@ Als grobe Richtlinie haben wir uns aus dem angedachten Aufbau ein Entity-Relatio
 - Richtige Berechtigungen auf der Datenbank
 
 ### Physisches Modell
-Das abschließende physische Modell haben wir mit Hilfe der MySQL Workbensch erzeugt. Es zeigt alle angelegten Tabellen und deren Verbindungen. Es zeigt einige einige Veränderungen und Erweiterungen zum zuvor entworfenen Entity-Relationship-Model. So haben wir zum Beispiel …
+Das abschließende physische Modell haben wir mit Hilfe der MySQL Workbench erzeugt. Es zeigt alle angelegten Tabellen und deren Verbindungen. Es werden einige Veränderungen und Erweiterungen zum zuvor entworfenen Entity-Relationship-Modell deutlich.
 
 ![Physisches Modell](img/Weisswurstdatenbank_Physisches-Modell.png)
 
@@ -96,7 +98,7 @@ BEGIN
     END IF;
 END;
 ```
-Diese Prozedur wird mit einer Unternehmens-ID aufgerufen. Zunächst wird über die Prozedur `is_open` (näher Beschrieben im folgenden Abschnitt *Funktionen*) geprüft, ob das Unternehmen offen hat. Hat es offen, wird der Name und die Schließzeit des Unternehmens abgefragt. In der Meldung wird die Schließzeit mit der aktuellen Uhrzeit verrechnet, um eine verbleibende Öffnungszeit anzugeben. Hat es geschlossen, wird die Öffnugszeit mit der aktuellen Uhrzeit verrechnet um die verbleibende Zeit auszurechnen, bis das Unternehmen wieder öffnet.
+Diese Prozedur wird mit einer Unternehmens-ID aufgerufen. Zunächst wird über die Prozedur `is_open` (näher Beschrieben im folgenden Abschnitt *Funktionen*) geprüft, ob das Unternehmen offen hat. Hat es offen, wird der Name und die Schließzeit des Unternehmens abgefragt. In der Meldung wird die Schließzeit mit der aktuellen Uhrzeit verrechnet, um eine verbleibende Öffnungsdauer anzugeben. Hat es geschlossen, wird die Öffnungszeit mit der aktuellen Uhrzeit verrechnet um die verbleibende Zeit auszurechnen, bis das Unternehmen wieder öffnet.
 
 ### Funktionen
 **Beispiel** `is_open`
@@ -119,7 +121,7 @@ BEGIN
 END;
 ```
 
-Diese Funktion wird mit einer Unternehmens-ID aufgerufen und gibt einen boolschen Rückgabewert. Von diesem Unternehmen werden die Öffnungs- und Schließzeiten abgefragt. Schließlich wird der Rückgabewert standardmäßig auf `false` gesetzt. Liegt aber die Öffnungszeit vor und die Schließzeit nach der aktuellen Uhrzeit, was bedeutet, dass das Geschäft gerade offen ist, wird der Rückgabewert `true` gesetzt. Zu guter Letzt wird der entsprechende Wert zurückgegeben.
+Diese Funktion wird mit einer Unternehmens-ID aufgerufen und gibt einen boolschen Rückgabewert. Von diesem Unternehmen werden die Öffnungs- und Schließzeiten abgefragt. Der Rückgabewert wird zunächst auf `false` gesetzt. Liegt aber die Öffnungszeit vor und die Schließzeit nach der aktuellen Uhrzeit – was bedeutet, dass das Geschäft gerade offen ist – wird der Rückgabewert `true` gesetzt. Schließlich wird der entsprechende Wert zurückgegeben.
 
 ### Sicht
 **Beispiel** `laeden_geoeffnet`
@@ -137,25 +139,26 @@ CREATE VIEW laeden_geoeffnet AS
     );
 ```
 
-In dieser View wird wiederum auf die Funktion `is_open` zurückgegriffen, wobei als zusätzliche Bedingung kein Unternehmen vom Typ "Hersteller" gefunden werden sollen, da explizit nach Verkaufs-Geschäften gefragt ist. Die Tabelle `unternehmen_typ` enthält nur fünf Einträge wobei die vier anderen Beschreibungen neben "Hersteller" die erforderten Verkaufs-Geschäfte bezeichnen. 
+In dieser View wird wiederum auf die Funktion `is_open` zurückgegriffen, wobei als zusätzliche Bedingung keine Unternehmen vom Typ "Hersteller" gefunden werden sollen, da explizit nach Verkaufs-Geschäften gefragt ist. Die Tabelle `unternehmen_typ` enthält nur fünf Einträge wobei die vier anderen Beschreibungen neben "Hersteller" die erforderten Verkaufs-Geschäfte bezeichnen. 
 
 ### Änderungen während der Modellierungsphase
-- Die Abstufungen bezüglich dem Schärfegrad von Süß, Mittelscharf, Scharf und Besondere Sorte soll zu einer numerischen von 1-100 geändert werden. Somit entsteht die Möglichkeit zwei ähnlich scharfe Senfe miteinander zu vergleichen.
-- Wir haben uns dazu entschlossen eine eigene Tabelle für die Weiswurst Typen zu definieren da diese immer wieder vorkommen und die Eindeutigkeit verbessert werden kann.
+- Die Abstufungen bezüglich dem Schärfegrad von Süß, Mittelscharf, Scharf und Besondere Sorte wurde zu einer numerischen (zwischen 1 und 100) geändert. Dadurch entsteht die Möglichkeit zwei ähnlich scharfe Senfe miteinander zu vergleichen.
+- Die Bewertung der Würste und Senfe haben wir zu einer kombinierten Bewertung zusammengelegt, da unter Umständen auch der beste Senf nicht zu bestimmten Wursttypen passt.
+- Wir haben uns dazu entschlossen eine eigene Tabelle für die Weiswurst Typen zu definieren, da diese immer wieder vorkommen und die Eindeutigkeit verbessert werden kann.
 - Aus Gründen der Ähnlichkeit haben wir die Fleischer und Verkäufer in die Tabelle `Unternehmen` gebündelt. Somit sind diese zentral verwaltbar. Das führte allerdings zu dem Problem, dass eine Wurst von einem Unternehmen hergestellt und von einem weiteren verkauft wird. Daher definieren wir eine Tabelle `Unternehmenstyp` um eine Unterscheidung festzuhalten.
 
 ### Probleme
 - Ursprünglich hatten wir uns für eine Datenbank mit MySQL entschieden, damit wir diese zentral auf einem HTW-eigenen Server speichern und alle Gruppenteilnehmer darauf zugreifen können. Jedoch mussten wir bei einem unserer Treffen Verbindungsabbrüche / Probleme mit dem Aufbau feststellen. Dies ist auf die Limitierung von einzelnen Verbindungen auf die Datenbank zurückzuführen (`Mysql Error 1203`). Bei späteren Treffen trat dieses Problem glücklicherweise nicht mehr auf, was vermuten lässt, dass es sich um ein temporäres Problem im HTW-Rechenzentrum handelte.
 - In der Funktion `is_open` werden von dem selben Unternehmen sowohl `oeffnungszeiten_beginn` als auch `oeffnungszeiten_ende` einzeln abgerufen und in Variablen gespeichert, was nahelegt, diese Abfragen lieber in einer Select-Anweisung abzuhandeln. Wir haben einige Zeit darauf angewendet, das umzusetzen, schließlich aber aufgegeben und uns entschieden, dass es nicht allzu schlimm ist, vorrübergehend zwei getrennte Abfragen zu haben.
-- Insbesondere, wenn bereits Foreign Key Contraints definiert sind, ist es manchmal ein bisschen schwierig, die Spalten einer Tabelle nachträglich zu verändern – Immerhin sollen ja stets alle Regeln eingehalten werden.
+- Insbesondere, wenn bereits Foreign Key Constraints definiert sind, ist es manchmal ein bisschen schwierig, die Spalten einer Tabelle nachträglich zu verändern – Immerhin sollen ja stets alle Regeln eingehalten werden.
 - Beim Arbeiten mit Foreign Keys auf ID-Spalten mussten wir darauf achten, dass die Integer alle `unsigned` sind.
 
 ## Erweiterungsmöglichkeiten
 
-- Die Tatsache, dass Geschäfte je nach Wochentag unterschiedliche Öffnungszeiten haben können, sollte in einer in einer detailierteren Tabelle reflektiert werden, in der die Zeiten der einzelnen Wochentage vermerkt werden.
-- Es sollte eine Prozedur für ein Weißwurstessen geben, in der die Weißwurst angegeben wird und danach der dazugehörige Zähler `anzahl` um eins hochgezählt wird, sowie das aktuelle Datum in das Feld `zuletzt_gegessen` eingetragen.
+- Die Tatsache, dass Geschäfte je nach Wochentag unterschiedliche Öffnungszeiten haben können, sollte in einer in einer detailierteren Tabelle reflektiert werden, in der die jeweiligen Zeiten der einzelnen Tage vermerkt werden.
+- Es sollte eine Prozedur für ein Weißwurstessen geben, in der die Weißwurst angegeben wird und damit automatisch der dazugehörige Zähler `anzahl` um eins hochgezählt wird, sowie das aktuelle Datum in das Feld `zuletzt_gegessen` eingetragen.
 - Die Bewertungen sollten ausgelagert werden, damit jeder von uns seine eigenen Bewertungen anlegen kann.
-- Eine große Erweiterung wäre ein Terminkalender, in dem die Daten der nächsten anstehenden Weißwurstfrühstücke eingetragen wrden.
+- Eine große Erweiterung wäre ein Terminkalender, in dem die Daten der nächsten anstehenden Weißwurstfrühstücke eingetragen werden.
 
 ## Quellen
 
