@@ -19,7 +19,7 @@ Da wir an einem Datenbank-Modell arbeiten wollten, dass wir wenigstens ein-, zwe
 ## Funktionsumfang
 Da wir die Datenbank am Ende selbst benutzen wollten, haben sich während der Entwicklungszeit einige Anforderungen unsererseits geändert, sodass der zunächst angedachte grundsätzliche Aufbau nicht vollständig umgesetzt wurde. Allerdings haben wir uns in allen Fällen, in denen eine Vorgabe von unseren Änderungen betroffen war, einen adäquaten Ersatz überlegt.
 
-Es ist nun möglich …
+Es ist nun möglich, Weißwürste, Senfsorten und Unternehmen anzulegen. Zusätzlich haben wir Tabellen für Weißwurst-, und Unternehmentypen, sowie einige Tabellen für die Beziehungen. Man kann jetzt beispielsweise das Zusammenspiel von Wurst und Senf bewerten, oder alle Läden auflisten, die eine bestimmte Senfsorte verkaufen.
 
 ## Konzeption
 
@@ -143,13 +143,15 @@ In dieser View wird wiederum auf die Funktion `is_open` zurückgegriffen, wobei 
 
 ### Probleme
 - Ursprünglich hatten wir uns für eine Datenbank mit MySQL entschieden, damit wir diese zentral auf einem HTW-eigenen Server speichern und alle Gruppenteilnehmer darauf zugreifen können. Jedoch mussten wir bei einem unserer Treffen Verbindungsabbrüche / Probleme mit dem Aufbau feststellen. Dies ist auf die Limitierung von einzelnen Verbindungen auf die Datenbank zurückzuführen (`Mysql Error 1203`). Bei späteren Treffen trat dieses Problem glücklicherweise nicht mehr auf, was Vermuten lässt, dass es sich um ein temporäres Problem im HTW-Rechenzentrum handelte.
-- In der Funktion `is_open` werden von dem selben Unternehmen sowohl `oeffnungszeiten_beginn` als auch `oeffnungszeiten_ende`, was nahe legt, diese Abfragen in einer Select-Anweisung abzuhandeln und in den jeweiligen Funktionsvariablen zwidschenzuspeichern. Es hat uns einige Zeit und Nerven gekostet, herauszufinden, dass das nicht möglich ist. Die Lösung war es, die Daten einzeln abzufragen und zu speichern.
-- …
+- In der Funktion `is_open` werden von dem selben Unternehmen sowohl `oeffnungszeiten_beginn` als auch `oeffnungszeiten_ende` einzeln abgerufen und in Variablen gespeichert, was nahelegt, diese Abfragen lieber in einer Select-Anweisung abzuhandeln. Wir haben einige Zeit darauf angewendet, das umzusetzen, schließlich aber aufgegeben und uns entschieden, dass es nicht allzu schlimm ist, vorrübergehend zwei getrennte Abfragen zu haben.
+- Insbesondere, wenn bereits Foreign Key Contraints definiert sind, ist es manchmal ein bisschen schwierig, die Spalten einer Tabelle nachträglich zu verändern – Immerhin sollen ja stets alle Regeln eingehalten werden.
+- Beim arbeiten mit Foreign Keys auf ID-Spalten mussten wir darauf achten, dass die Integer alle `unsigned` sind.
 
 ## Erweiterungsmöglichkeiten
 - Wochentage der Öffnungszeiten
 - Prozedur für Weißwurstessen: Anzahl erhöhen, Datum setzen
-- …
+- Terminkalender, wann die nächsten Weißwurstfrühstücke stattfinden werden
+- Bewertungen auslagern, damit jeder von uns seine eigenen Bewertungen anlegen kann
 
 ## Quellen
 - …
