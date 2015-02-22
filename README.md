@@ -54,8 +54,6 @@ Als grobe Richtlinie haben wir uns aus dem angedachten Aufbau ein Entity-Relatio
 
 ![Konzeptuelles Schema](img/Weisswurstdatenbank_ERM_02-21_14-49.png)
 
-Aus diesem wurde ein Datenbankmodell welches zusätzlich Datentypen definiert. (Dieser Punkt stimmt glaube ich noch nicht ganz.)
-
 ## Durchführung
 
 ### Technische Voraussetzungen
@@ -79,7 +77,7 @@ Das abschließende physische Modell haben wir mit Hilfe der MySQL Workbensch erz
 Um herauszufinden, ob ein bestimmtes Geschäft noch zur aktuellen Uhrzeit offen hat, haben wir uns eine Prozedur programmiert, die uns eine entsprechende Meldung mit der verbleibenden Öffnugszeit ausgibt.
 
 ```sql
-CREATE PROCEDURE `laden_geoeffnet`(in unternehmen_id integer)
+CREATE PROCEDURE `laden_geoeffnet` (in unternehmen_id integer)
 BEGIN 
     DECLARE o_ende TIME;
     DECLARE o_anfang TIME;
@@ -102,7 +100,7 @@ Diese Prozedur wird mit einer Unternehmens-ID aufgerufen. Zunächst wird über d
 Diese Funktion gibt Antwort auf die Frage, ob ein Unternehmen zurzeit offen hat.
 
 ```sql
-CREATE FUNCTION `is_open`(id_unternehmen INTEGER) RETURNS tinyint(1)
+CREATE FUNCTION `is_open` (id_unternehmen INTEGER) RETURNS tinyint(1)
 BEGIN
     DECLARE output BOOLEAN;
     DECLARE time_begin TIME;
@@ -148,10 +146,13 @@ In dieser View wird wiederum auf die Funktion `is_open` zurückgegriffen, wobei 
 - Beim Arbeiten mit Foreign Keys auf ID-Spalten mussten wir darauf achten, dass die Integer alle `unsigned` sind.
 
 ## Erweiterungsmöglichkeiten
+
 - Wochentage der Öffnungszeiten
 - Prozedur für Weißwurstessen: Anzahl erhöhen, Datum setzen
 - Terminkalender, wann die nächsten Weißwurstfrühstücke stattfinden werden
 - Bewertungen auslagern, damit jeder von uns seine eigenen Bewertungen anlegen kann
 
 ## Quellen
-- …
+
+- http://dev.mysql.com/doc/refman/5.6/en/index.html
+- http://downloads.mysql.com/docs/workbench-en.pdf
