@@ -144,12 +144,14 @@ In dieser View wird wiederum auf die Funktion `is_open` zurückgegriffen, wobei 
 ### Probleme
 - Ursprünglich hatten wir uns für eine Datenbank mit MySQL entschieden, damit wir diese zentral auf einem HTW-eigenen Server speichern und alle Gruppenteilnehmer darauf zugreifen können. Jedoch mussten wir bei einem unserer Treffen Verbindungsabbrüche / Probleme mit dem Aufbau feststellen. Dies ist auf die Limitierung von einzelnen Verbindungen auf die Datenbank zurückzuführen (`Mysql Error 1203`). Bei späteren Treffen trat dieses Problem glücklicherweise nicht mehr auf, was Vermuten lässt, dass es sich um ein temporäres Problem im HTW-Rechenzentrum handelte.
 - In der Funktion `is_open` werden von dem selben Unternehmen sowohl `oeffnungszeiten_beginn` als auch `oeffnungszeiten_ende`, was nahe legt, diese Abfragen in einer Select-Anweisung abzuhandeln und in den jeweiligen Funktionsvariablen zwischenzuspeichern. Es hat uns einige Zeit und Nerven gekostet, herauszufinden, dass das nicht möglich ist. Die Lösung war es, die Daten einzeln abzufragen und zu speichern.
-- …
+- Insbesondere, wenn bereits Foreign Key Contraints definiert sind, ist es manchmal ein bisschen schwierig, die Spalten einer Tabelle nachträglich zu verändern – Immerhin sollen ja stets alle Regeln eingehalten werden.
+- Beim Arbeiten mit Foreign Keys auf ID-Spalten mussten wir darauf achten, dass die Integer alle `unsigned` sind.
 
 ## Erweiterungsmöglichkeiten
 - Wochentage der Öffnungszeiten
 - Prozedur für Weißwurstessen: Anzahl erhöhen, Datum setzen
-- …
+- Terminkalender, wann die nächsten Weißwurstfrühstücke stattfinden werden
+- Bewertungen auslagern, damit jeder von uns seine eigenen Bewertungen anlegen kann
 
 ## Quellen
 - …
