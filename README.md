@@ -19,7 +19,11 @@ Da wir an einem Datenbank-Modell arbeiten wollten, dass wir wenigstens ein-, zwe
 ## Funktionsumfang
 Da wir die Datenbank am Ende selbst benutzen wollten, haben sich während der Entwicklungszeit einige Anforderungen unsererseits geändert, sodass der zunächst angedachte grundsätzliche Aufbau nicht vollständig umgesetzt wurde. Allerdings haben wir uns in allen Fällen, in denen eine Vorgabe von unseren Änderungen betroffen war, einen adäquaten Ersatz überlegt.
 
-Es ist nun möglich …
+Es ist nun möglich Weißwürste, Senfsorten und Unternehmen in der Datenbank zu speichern. Außerdem kann die Kombination von Weißwurst und Senf bewertet werden.
+
+Würste und Senf können mit typischen Angaben, wie z. B. Name, Preis und Gewicht gespeichert werden. Würste erhalten noch extra Felder zum Merken, wie oft sie bereits gegessen wurden und wann zum letzten Mal. Würste können außerdem einem bestimmten Typ zugeordnet werden, der wiederum mit einer genaueren Beschreibung versehen werden kann. Dem Senf kann ein Schärfegrad in Zahlen zugeordnet werden.
+
+Unternehmen haben ebenfalls die erwartbaren Angaben, wie z. B. Ort, Straße oder Telefonnummer. Ein Unternehmen kann sowohl ein Hersteller sein, als auch ein Geschäft, in dem Produkte gekauft werden. Zu jedem Geschäft kann eine Öffnungszeit gespeichert werden, und somit können aktuell geöffnete Geschäfte in einer Sicht angezeigt werden.
 
 ## Konzeption
 
@@ -74,7 +78,7 @@ Das abschließende physische Modell haben wir mit Hilfe der MySQL Workbensch erz
 ### Prozeduren
 **Beispiel** `laden_geoeffnet`
 
-Um herauszufinden, ob ein bestimmtes Geschäft noch zur aktuellen Uhrzeit offen hat, haben wir uns eine Prozedur programmiert, die uns eine entsprechende Meldung mit der verbleibenden Öffnugszeit ausgibt.
+Um herauszufinden, ob ein bestimmtes Geschäft noch zur aktuellen Uhrzeit offen hat, haben wir uns eine Prozedur programmiert, die uns eine entsprechende Meldung mit der verbleibenden Öffnungszeit ausgibt.
 
 ```sql
 CREATE PROCEDURE `laden_geoeffnet` (in unternehmen_id integer)
@@ -118,6 +122,7 @@ END;
 Diese Funktion wird mit einer Unternehmens-ID aufgerufen und gibt einen boolschen Rückgabewert. Von diesem Unternehmen werden die Öffnungs- und Schließzeiten abgefragt. Schließlich wird der Rückgabewert standardmäßig auf `false` gesetzt. Liegt aber die Öffnungszeit vor und die Schließzeit nach der aktuellen Uhrzeit, was bedeutet, dass das Geschäft gerade offen ist, wird der Rückgabewert `true` gesetzt. Zu guter Letzt wird der entsprechende Wert zurückgegeben.
 
 ### Sicht
+**Beispiel** `laeden_geoeffnet`
 
 Ein Anwendungsfall, der sehr häufig auftritt, ist, alle Läden zu finden, die aktuell geöffnet sind. Dazu erstellten wir eine Sicht wie folgt:
 
@@ -147,10 +152,10 @@ In dieser View wird wiederum auf die Funktion `is_open` zurückgegriffen, wobei 
 
 ## Erweiterungsmöglichkeiten
 
-- Wochentage der Öffnungszeiten
-- Prozedur für Weißwurstessen: Anzahl erhöhen, Datum setzen
-- Terminkalender, wann die nächsten Weißwurstfrühstücke stattfinden werden
-- Bewertungen auslagern, damit jeder von uns seine eigenen Bewertungen anlegen kann
+- Die Tatsache, dass Geschäfte je nach Wochentag unterschiedliche Öffnungszeiten haben können, sollte in einer in einer detailierteren Tabelle reflektiert werden, in der die Zeiten der einzelnen Wochentage vermerkt werden.
+- Es sollte eine Prozedur für ein Weißwurstessen geben, in der die Weißwurst angegeben wird und danach der dazugehörige Zähler `anzahl` um eins hochgezählt wird, sowie das aktuelle Datum in das Feld `zuletzt_gegessen` eingetragen.
+- Die Bewertungen sollten ausgelagert werden, damit jeder von uns seine eigenen Bewertungen anlegen kann.
+- Eine große Erweiterung wäre ein Terminkalender, in dem die Daten der nächsten anstehenden Weißwurstfrühstücke eingetragen wrden.
 
 ## Quellen
 
