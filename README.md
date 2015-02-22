@@ -156,3 +156,4 @@ In dieser View wird wiederum auf die Funktion `is_open` zurückgegriffen, wobei 
 
 - http://dev.mysql.com/doc/refman/5.6/en/index.html
 - http://downloads.mysql.com/docs/workbench-en.pdf
+- http://www.haendlmaier.de/
