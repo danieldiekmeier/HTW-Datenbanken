@@ -52,7 +52,7 @@ Zu guter Letzt sollen die Tabellen für Senf und Weißwürste mit den Geschäfte
 ### Konzeptuelles Schema
 Als grobe Richtlinie haben wir uns aus dem angedachten Aufbau ein Entity-Relationship-Modell gezeichnet. Jedoch wurde das Modell immer wieder kleineren und größeren Änderungen unterworfen (Beispiele unter *Änderungen während der Modellierungsphase*), sodass das ERM deutlich vom physikalischen Modell abweicht.
 
-![alt tag](img/Weisswurstdatenbank_ERM_02-21_14-49.png)
+![Konzeptuelles Schema](img/Weisswurstdatenbank_ERM_02-21_14-49.png)
 
 Aus diesem wurde ein Datenbankmodell welches zusätzlich Datentypen definiert. (Dieser Punkt stimmt glaube ich noch nicht ganz.)
 
@@ -71,7 +71,7 @@ Aus diesem wurde ein Datenbankmodell welches zusätzlich Datentypen definiert. (
 ### Physisches Modell
 Das abschließende physische Modell haben wir mit Hilfe der MySQL Workbensch erzeugt. Es zeigt alle angelegten Tabellen und deren Verbindungen. Es zeigt einige einige Veränderungen und Erweiterungen zum zuvor entworfenen Entity-Relationship-Model. So haben wir zum Beispiel …
 
-![alt tag](img/Weisswurstdatenbank_Physisches-Modell.png)
+![Physisches Modell](img/Weisswurstdatenbank_Physisches-Modell.png)
 
 ### Prozeduren
 **Beispiel** `laden_geoeffnet`
